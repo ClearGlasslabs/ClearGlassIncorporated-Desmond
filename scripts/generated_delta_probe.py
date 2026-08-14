@@ -12,6 +12,15 @@ ROOT = Path(__file__).resolve().parents[1]
 GRAPH_ROUTE = "/blog/graph-topology-multi-agent-research-workflow.html"
 GRAPH_URL = "https://www.clearglassinc.com" + GRAPH_ROUTE
 
+GROUPS = {
+    "blog": lambda route: route.startswith("/blog/"),
+    "offers": lambda route: route.startswith("/offers/") or route.startswith("/checkout/") or route in {"/pricing.html", "/plans.html", "/store.html"},
+    "legal": lambda route: route.startswith("/legal/") or route in {"/aegis.html", "/banking-law-advisor.html", "/corporate-legal-advisor.html", "/tax.html"},
+    "ops": lambda route: route.startswith("/operations/") or route.startswith("/apps/") or route.startswith("/investors/"),
+    "products": lambda route: route.startswith("/products/") or route.startswith("/opal/") or route in {"/products.html", "/smb.html", "/workspace.html", "/workspace-email.html", "/workspace-migration.html", "/workspace-security.html", "/workspace-vs.html"},
+    "root": lambda route: route.count("/") == 1 and not route.startswith("/blog/"),
+}
+
 
 def generate() -> None:
     shutil.copy2(ROOT / "sitemap.xml", "/tmp/sitemap-before.xml")
@@ -34,6 +43,11 @@ def intent_map(path: str | Path) -> dict[str, dict]:
     return {row["route"]: row for row in json.loads(Path(path).read_text(encoding="utf-8"))}
 
 
+def group_matches(route: str, group: str) -> bool:
+    predicate = GROUPS[group]
+    return predicate(route)
+
+
 def main() -> int:
     mode = sys.argv[1]
     generate()
@@ -49,6 +63,14 @@ def main() -> int:
             return 0 if after.get(GRAPH_URL) == "2026-08-14" else 1
         if mode == "sitemap-bytes":
             return 0 if Path("/tmp/sitemap-before.xml").read_bytes() == (ROOT / "sitemap.xml").read_bytes() else 1
+        if mode.startswith("sitemap-group-"):
+            group = mode.removeprefix("sitemap-group-")
+            changed = {
+                url.removeprefix("https://www.clearglassinc.com") or "/"
+                for url in set(before) & set(after)
+                if before[url] != after[url]
+            }
+            return 1 if any(group_matches(route, group) for route in changed) else 0
     if mode.startswith("intent-"):
         before = intent_map("/tmp/intents-before.json")
         after = intent_map(ROOT / "data/seo/page-intents.json")
@@ -66,6 +88,17 @@ def main() -> int:
                 "h1": "Graph Topology Beats One Giant Context",
             }
             return 0 if after.get(GRAPH_ROUTE) == expected else 1
+        if mode.startswith("intent-group-"):
+            group = mode.removeprefix("intent-group-")
+            changed = {
+                route
+                for route in set(before) & set(after)
+                if before[route] != after[route]
+            }
+            added = set(after) - set(before)
+            removed = set(before) - set(after)
+            delta = changed | added | removed
+            return 1 if any(group_matches(route, group) for route in delta) else 0
     return 2
 
 

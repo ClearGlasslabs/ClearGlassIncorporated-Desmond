@@ -28,29 +28,23 @@ def inventory(module):
     return discovered, classified
 
 
-def root_da_group(pages: set[str], group: str) -> int:
-    roots = {page.lower() for page in pages if "/" not in page and page.lower().startswith("da")}
-    if group == "s-z":
-        return 1 if any(len(page) > 2 and page[2] in "stuvwxyz" for page in roots) else 0
-    if group == "other":
-        return 1 if any(len(page) < 3 or not page[2].isalpha() for page in roots) else 0
-    return 2
-
-
 def internal(mode: str) -> int:
     module = load_internal_links()
     discovered, classified = inventory(module)
     unknown = discovered - classified
     missing = classified - discovered
 
+    if mode.startswith("unknown-prefix-"):
+        prefix = mode.removeprefix("unknown-prefix-").lower()
+        return 1 if any("/" not in page and page.lower().startswith(prefix) for page in unknown) else 0
     if mode == "unknown-da-s-z":
-        return root_da_group(unknown, "s-z")
+        return 1 if any("/" not in page and page.lower().startswith("da") and len(page) > 2 and page[2].lower() in "stuvwxyz" for page in unknown) else 0
     if mode == "missing-da-s-z":
-        return root_da_group(missing, "s-z")
+        return 1 if any("/" not in page and page.lower().startswith("da") and len(page) > 2 and page[2].lower() in "stuvwxyz" for page in missing) else 0
     if mode == "unknown-da-other":
-        return root_da_group(unknown, "other")
+        return 1 if any("/" not in page and page.lower().startswith("da") and (len(page) < 3 or not page[2].isalpha()) for page in unknown) else 0
     if mode == "missing-da-other":
-        return root_da_group(missing, "other")
+        return 1 if any("/" not in page and page.lower().startswith("da") and (len(page) < 3 or not page[2].isalpha()) for page in missing) else 0
     if mode == "validate":
         return 1 if module.validate() else 0
     if mode == "classification":

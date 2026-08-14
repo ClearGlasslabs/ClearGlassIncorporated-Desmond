@@ -8,77 +8,43 @@ executors:
     working_directory: ~/project
 
 jobs:
-  site-reliability:
+  internal-validate:
     executor: py
     steps:
       - checkout
-      - run:
-          name: Site reliability audit
-          command: python scripts/site_reliability_audit.py
-
-  search-assets:
+      - run: python scripts/circleci_probe.py internal validate
+  internal-report:
     executor: py
     steps:
       - checkout
-      - run:
-          name: Generate and verify search assets
-          command: |
-            python tools/generate_search_assets.py
-            git diff --exit-code -- sitemap.xml feed.xml data/seo/page-intents.json
-
-  seo-audit:
+      - run: python scripts/circleci_probe.py internal report
+  internal-blocks:
     executor: py
     steps:
       - checkout
-      - run:
-          name: SEO and JSON-LD audit
-          command: python tools/seo_audit.py
-
-  internal-links:
+      - run: python scripts/circleci_probe.py internal blocks
+  search-sitemap:
     executor: py
     steps:
       - checkout
-      - run:
-          name: Internal-link generator check
-          command: python tools/internal_links.py --check
-
-  workflow-doctor:
+      - run: python scripts/circleci_probe.py search sitemap.xml
+  search-feed:
     executor: py
     steps:
       - checkout
-      - run:
-          name: Install PyYAML
-          command: python -m pip install "PyYAML==6.0.2"
-      - run:
-          name: Workflow Doctor
-          command: python scripts/workflow_doctor.py
-
-  actions-audit:
+      - run: python scripts/circleci_probe.py search feed.xml
+  search-intents:
     executor: py
     steps:
       - checkout
-      - run:
-          name: Install PyYAML
-          command: python -m pip install "PyYAML==6.0.2"
-      - run:
-          name: GitHub Actions safety audit
-          command: python scripts/audit_github_actions.py
-
-  osint-deck:
-    executor: py
-    steps:
-      - checkout
-      - run:
-          name: Strict OSINT deck validation
-          command: python scripts/osint_deck_release.py --strict
+      - run: python scripts/circleci_probe.py search data/seo/page-intents.json
 
 workflows:
-  site-integrity-diagnostics:
+  generated-integrity-probes:
     jobs:
-      - site-reliability
-      - search-assets
-      - seo-audit
-      - internal-links
-      - workflow-doctor
-      - actions-audit
-      - osint-deck
+      - internal-validate
+      - internal-report
+      - internal-blocks
+      - search-sitemap
+      - search-feed
+      - search-intents

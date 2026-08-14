@@ -8,19 +8,27 @@ executors:
     working_directory: ~/project
 
 jobs:
-  classification-blog:
+  root-a-f:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-blog"}]
-  classification-root:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-a-f"}]
+  root-g-l:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root"}]
-  classification-nested:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-g-l"}]
+  root-m-r:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-nested"}]
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-m-r"}]
+  root-s-z:
+    executor: py
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-s-z"}]
+  root-other:
+    executor: py
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-other"}]
 
 workflows:
-  classification-location:
+  root-classification-location:
     jobs:
-      - classification-blog
-      - classification-root
-      - classification-nested
+      - root-a-f
+      - root-g-l
+      - root-m-r
+      - root-s-z
+      - root-other

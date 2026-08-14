@@ -8,28 +8,43 @@ executors:
     working_directory: ~/project
 
 jobs:
-  sitemap-urls:
+  sitemap-blog:
     executor: py
-    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-urls"}]
-  sitemap-lastmods:
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-group-blog"}]
+  sitemap-offers:
     executor: py
-    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-lastmods"}]
-  sitemap-graph:
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-group-offers"}]
+  sitemap-legal:
     executor: py
-    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-graph"}]
-  sitemap-bytes:
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-group-legal"}]
+  sitemap-ops:
     executor: py
-    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-bytes"}]
-  intent-routes:
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-group-ops"}]
+  sitemap-products:
     executor: py
-    steps: [checkout, {run: "python scripts/generated_delta_probe.py intent-routes"}]
-  intent-existing:
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-group-products"}]
+  sitemap-root:
     executor: py
-    steps: [checkout, {run: "python scripts/generated_delta_probe.py intent-existing"}]
-  intent-graph:
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-group-root"}]
+  intent-blog:
     executor: py
-    steps: [checkout, {run: "python scripts/generated_delta_probe.py intent-graph"}]
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py intent-group-blog"}]
+  intent-offers:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py intent-group-offers"}]
+  intent-legal:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py intent-group-legal"}]
+  intent-ops:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py intent-group-ops"}]
+  intent-products:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py intent-group-products"}]
+  intent-root:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py intent-group-root"}]
 
 workflows:
-  generated-delta-shape:
-    jobs: [sitemap-urls, sitemap-lastmods, sitemap-graph, sitemap-bytes, intent-routes, intent-existing, intent-graph]
+  stale-metadata-groups:
+    jobs: [sitemap-blog, sitemap-offers, sitemap-legal, sitemap-ops, sitemap-products, sitemap-root, intent-blog, intent-offers, intent-legal, intent-ops, intent-products, intent-root]

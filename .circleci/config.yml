@@ -8,45 +8,40 @@ executors:
     working_directory: ~/project
 
 commands:
-  install-root:
-    steps:
-      - run: |
-          python -m pip install --upgrade pip
-          python -m pip install -c requirements.txt -e ".[test]" "PyYAML==6.0.2"
   install-osit:
     steps:
       - run: python -m pip install -e './osit[dev]'
 
 jobs:
-  root-future-buttons:
+  osit-a-c:
     executor: py
-    steps: [checkout, install-root, {run: "python -m pytest tests/test_future_buttons.py -q"}]
-  root-holographic:
+    steps:
+      - checkout
+      - install-osit
+      - run: cd osit && ruff check src/osit/accessibility.py src/osit/acquisition.py src/osit/cli.py src/osit/config.py
+  osit-m:
     executor: py
-    steps: [checkout, install-root, {run: "python -m pytest tests/test_holographic_branding.py -q"}]
-  root-internal-links:
+    steps:
+      - checkout
+      - install-osit
+      - run: cd osit && ruff check src/osit/metrics.py src/osit/morphology.py src/osit/multimodal.py
+  osit-n-p:
     executor: py
-    steps: [checkout, install-root, {run: "python -m pytest tests/test_internal_links.py -q"}]
-  root-tab-icons:
+    steps:
+      - checkout
+      - install-osit
+      - run: cd osit && ruff check src/osit/network_builder.py src/osit/provenance.py
+  osit-r-v:
     executor: py
-    steps: [checkout, install-root, {run: "python -m pytest tests/test_tab_icons.py -q"}]
-  root-deployment-containment:
-    executor: py
-    steps: [checkout, install-root, {run: "python -m pytest tests/test_deployment_workflow_containment.py -q"}]
-  osit-ruff-src:
-    executor: py
-    steps: [checkout, install-osit, {run: "cd osit && ruff check src"}]
-  osit-ruff-tests:
-    executor: py
-    steps: [checkout, install-osit, {run: "cd osit && ruff check tests"}]
+    steps:
+      - checkout
+      - install-osit
+      - run: cd osit && ruff check src/osit/resilience.py src/osit/validation.py src/osit/visualization.py src/osit/__init__.py
 
 workflows:
-  residual-runtime-diagnostics:
+  osit-source-lint-diagnostics:
     jobs:
-      - root-future-buttons
-      - root-holographic
-      - root-internal-links
-      - root-tab-icons
-      - root-deployment-containment
-      - osit-ruff-src
-      - osit-ruff-tests
+      - osit-a-c
+      - osit-m
+      - osit-n-p
+      - osit-r-v

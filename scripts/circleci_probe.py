@@ -28,6 +28,20 @@ def inventory(module):
     return discovered, classified
 
 
+def root_partition(mode: str, pages: set[str]) -> int:
+    roots = {page for page in pages if "/" not in page}
+    ranges = {
+        "classification-root-a-f": "abcdef",
+        "classification-root-g-l": "ghijkl",
+        "classification-root-m-r": "mnopqr",
+        "classification-root-s-z": "stuvwxyz",
+    }
+    if mode == "classification-root-other":
+        return 1 if any(not page[:1].lower().isalpha() for page in roots) else 0
+    letters = ranges[mode]
+    return 1 if any(page[:1].lower() in letters for page in roots) else 0
+
+
 def internal(mode: str) -> int:
     module = load_internal_links()
     if mode == "validate":
@@ -43,16 +57,17 @@ def internal(mode: str) -> int:
         return 0
     if mode.startswith("classification"):
         discovered, classified = inventory(module)
+        delta = (discovered - classified) | (classified - discovered)
         if mode == "classification":
-            return 0 if discovered == classified else 1
-        unknown = discovered - classified
-        missing = classified - discovered
+            return 0 if not delta else 1
         if mode == "classification-blog":
-            return 1 if any(page.startswith("blog/") for page in unknown | missing) else 0
+            return 1 if any(page.startswith("blog/") for page in delta) else 0
         if mode == "classification-root":
-            return 1 if any("/" not in page for page in unknown | missing) else 0
+            return 1 if any("/" not in page for page in delta) else 0
         if mode == "classification-nested":
-            return 1 if any("/" in page and not page.startswith("blog/") for page in unknown | missing) else 0
+            return 1 if any("/" in page and not page.startswith("blog/") for page in delta) else 0
+        if mode.startswith("classification-root-"):
+            return root_partition(mode, delta)
     if mode == "mapped-files":
         return 0 if all((ROOT / page).is_file() for page in module.PAGES) else 1
     if mode == "native-files":

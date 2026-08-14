@@ -13,39 +13,39 @@ commands:
       - run: python -m pip install "PyYAML==6.0.2"
 
 jobs:
-  actions-20-30:
+  actions-30-35:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 20 30"}]
-  actions-30-40:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 30 35"}]
+  actions-35-40:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 30 40"}]
-  actions-40-50:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 35 40"}]
+  actions-50-55:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 40 50"}]
-  actions-50-60:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 50 55"}]
+  actions-55-60:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 50 60"}]
-  doctor-20-30:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 55 60"}]
+  doctor-30-35:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 20 30"}]
-  doctor-30-40:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 30 35"}]
+  doctor-35-40:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 30 40"}]
-  doctor-40-50:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 35 40"}]
+  doctor-50-55:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 40 50"}]
-  doctor-50-60:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 50 55"}]
+  doctor-55-60:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 50 60"}]
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 55 60"}]
 
 workflows:
   workflow-safety-bisect:
     jobs:
-      - actions-20-30
-      - actions-30-40
-      - actions-40-50
-      - actions-50-60
-      - doctor-20-30
-      - doctor-30-40
-      - doctor-40-50
-      - doctor-50-60
+      - actions-30-35
+      - actions-35-40
+      - actions-50-55
+      - actions-55-60
+      - doctor-30-35
+      - doctor-35-40
+      - doctor-50-55
+      - doctor-55-60

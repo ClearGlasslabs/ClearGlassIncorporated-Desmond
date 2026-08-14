@@ -8,46 +8,25 @@ executors:
     working_directory: ~/project
 
 jobs:
-  reliability:
+  links-validate:
     executor: py
-    steps:
-      - checkout
-      - run: python scripts/site_reliability_audit.py
-  search-assets:
+    steps: [checkout, {run: "python scripts/final_integrity_probe.py links validate"}]
+  links-report:
     executor: py
-    steps:
-      - checkout
-      - run: |
-          python tools/generate_search_assets.py
-          git diff --exit-code -- sitemap.xml feed.xml data/seo/page-intents.json
-  seo:
+    steps: [checkout, {run: "python scripts/final_integrity_probe.py links report"}]
+  links-blocks:
     executor: py
-    steps:
-      - checkout
-      - run: python tools/seo_audit.py
-  links:
+    steps: [checkout, {run: "python scripts/final_integrity_probe.py links blocks"}]
+  sitemap:
     executor: py
-    steps:
-      - checkout
-      - run: python tools/internal_links.py --check
-  doctor:
+    steps: [checkout, {run: "python scripts/final_integrity_probe.py search sitemap.xml"}]
+  feed:
     executor: py
-    steps:
-      - checkout
-      - run: python -m pip install "PyYAML==6.0.2"
-      - run: python scripts/workflow_doctor.py
-  actions-audit:
+    steps: [checkout, {run: "python scripts/final_integrity_probe.py search feed.xml"}]
+  intents:
     executor: py
-    steps:
-      - checkout
-      - run: python -m pip install "PyYAML==6.0.2"
-      - run: python scripts/audit_github_actions.py
-  osint:
-    executor: py
-    steps:
-      - checkout
-      - run: python scripts/osint_deck_release.py --strict
+    steps: [checkout, {run: "python scripts/final_integrity_probe.py search data/seo/page-intents.json"}]
 
 workflows:
-  final-site-integrity:
-    jobs: [reliability, search-assets, seo, links, doctor, actions-audit, osint]
+  final-generated-deltas:
+    jobs: [links-validate, links-report, links-blocks, sitemap, feed, intents]

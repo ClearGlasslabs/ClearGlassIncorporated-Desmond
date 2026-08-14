@@ -13,22 +13,64 @@ commands:
           python -m pip install --upgrade pip
           python -m pip install -c requirements.txt -e ".[test]" "PyYAML==6.0.2"
           python -m pip install -r clearglass-commerce/control-plane/requirements.txt
+  run-letter:
+    parameters:
+      letter:
+        type: string
+    steps:
+      - run:
+          command: |
+            set -euo pipefail
+            shopt -s nullglob
+            files=(tests/test_<< parameters.letter >>*.py)
+            if (( ${#files[@]} == 0 )); then exit 0; fi
+            python -m pytest "${files[@]}" -q
 jobs:
-  a-e:
+  a:
     executor: py
-    steps: [checkout, setup, {run: "python -m pytest tests/test_[a-e]*.py -q"}]
-  f-j:
+    steps: [checkout, setup, {run-letter: {letter: a}}]
+  b:
     executor: py
-    steps: [checkout, setup, {run: "python -m pytest tests/test_[f-j]*.py -q --ignore=tests/test_future_buttons.py --ignore=tests/test_holographic_branding.py --ignore=tests/test_internal_links.py"}]
-  k-o:
+    steps: [checkout, setup, {run-letter: {letter: b}}]
+  c:
     executor: py
-    steps: [checkout, setup, {run: "python -m pytest tests/test_[k-o]*.py -q"}]
-  p-t:
+    steps: [checkout, setup, {run-letter: {letter: c}}]
+  d:
     executor: py
-    steps: [checkout, setup, {run: "python -m pytest tests/test_[p-t]*.py -q --ignore=tests/test_tab_icons.py"}]
-  u-z:
+    steps: [checkout, setup, {run-letter: {letter: d}}]
+  e:
     executor: py
-    steps: [checkout, setup, {run: "python -m pytest tests/test_[u-z]*.py -q"}]
+    steps: [checkout, setup, {run-letter: {letter: e}}]
+  f:
+    executor: py
+    steps: [checkout, setup, {run-letter: {letter: f}}]
+  g:
+    executor: py
+    steps: [checkout, setup, {run-letter: {letter: g}}]
+  h:
+    executor: py
+    steps: [checkout, setup, {run-letter: {letter: h}}]
+  i:
+    executor: py
+    steps: [checkout, setup, {run-letter: {letter: i}}]
+  j:
+    executor: py
+    steps: [checkout, setup, {run-letter: {letter: j}}]
+  p:
+    executor: py
+    steps: [checkout, setup, {run-letter: {letter: p}}]
+  q:
+    executor: py
+    steps: [checkout, setup, {run-letter: {letter: q}}]
+  r:
+    executor: py
+    steps: [checkout, setup, {run-letter: {letter: r}}]
+  s:
+    executor: py
+    steps: [checkout, setup, {run-letter: {letter: s}}]
+  t:
+    executor: py
+    steps: [checkout, setup, {run-letter: {letter: t}}]
 workflows:
-  residual-root-bisect:
-    jobs: [a-e, f-j, k-o, p-t, u-z]
+  exact-root-initials:
+    jobs: [a, b, c, d, e, f, g, h, i, j, p, q, r, s, t]

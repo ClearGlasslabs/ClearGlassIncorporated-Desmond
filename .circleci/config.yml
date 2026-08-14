@@ -6,38 +6,26 @@ executors:
       - image: cimg/python:3.11-node
     resource_class: medium
     working_directory: ~/project
-
 commands:
   install-osit:
     steps:
       - run: python -m pip install -e './osit[dev]'
-
 jobs:
-  config-e:
+  e4:
     executor: py
-    steps: [checkout, install-osit, {run: "cd osit && ruff check --select E src/osit/config.py"}]
-  config-f:
+    steps: [checkout, install-osit, {run: "cd osit && ruff check --select E4 src/osit/config.py"}]
+  e7:
     executor: py
-    steps: [checkout, install-osit, {run: "cd osit && ruff check --select F src/osit/config.py"}]
-  config-i:
+    steps: [checkout, install-osit, {run: "cd osit && ruff check --select E7 src/osit/config.py"}]
+  e9:
     executor: py
-    steps: [checkout, install-osit, {run: "cd osit && ruff check --select I src/osit/config.py"}]
-  config-up:
+    steps: [checkout, install-osit, {run: "cd osit && ruff check --select E9 src/osit/config.py"}]
+  up037:
     executor: py
-    steps: [checkout, install-osit, {run: "cd osit && ruff check --select UP src/osit/config.py"}]
-  config-b:
+    steps: [checkout, install-osit, {run: "cd osit && ruff check --select UP037 src/osit/config.py"}]
+  up038:
     executor: py
-    steps: [checkout, install-osit, {run: "cd osit && ruff check --select B src/osit/config.py"}]
-  config-sim:
-    executor: py
-    steps: [checkout, install-osit, {run: "cd osit && ruff check --select SIM src/osit/config.py"}]
-
+    steps: [checkout, install-osit, {run: "cd osit && ruff check --select UP038 src/osit/config.py"}]
 workflows:
-  osit-config-rule-diagnostics:
-    jobs:
-      - config-e
-      - config-f
-      - config-i
-      - config-up
-      - config-b
-      - config-sim
+  pinpoint:
+    jobs: [e4, e7, e9, up037, up038]

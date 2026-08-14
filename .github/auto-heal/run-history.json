@@ -1,4 +1,35 @@
 {
   "schema_version": 1,
-  "entries": []
+  "entries": [
+    {
+      "handled_at": "2026-08-14T23:03:26.404875+00:00",
+      "repo": "ClearGlasslabs/ClearGlassIncorporated-Desmond",
+      "workflow": "CI",
+      "run_id": 31848844157,
+      "run_attempt": 1,
+      "commit_sha": "240259c59a90e3cf7f693c0aadd974521e897c8f",
+      "branch": "verify/site-final-20260814",
+      "classification": "UNKNOWN_FAILURE",
+      "action": "escalated_existing_issue",
+      "issue_number": null,
+      "run_url": "https://github.com/ClearGlasslabs/ClearGlassIncorporated-Desmond/actions/runs/31848844157",
+      "diagnostics": [
+        {
+          "job": "Search discovery and structured data",
+          "job_id": 94920610575,
+          "conclusion": "failure",
+          "category": "UNKNOWN_FAILURE",
+          "signature": "unknown failure"
+        },
+        {
+          "job": "Python Tests",
+          "job_id": 94920610605,
+          "conclusion": "failure",
+          "category": "UNKNOWN_FAILURE",
+          "signature": "unknown failure"
+        }
+      ],
+      "outcome": "pending_review"
+    }
+  ]
 }

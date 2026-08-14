@@ -8,23 +8,43 @@ executors:
     working_directory: ~/project
 
 jobs:
-  d-a-i:
+  da:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-second-abcdefghi"}]
-  d-j-r:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-prefix-da"}]
+  db:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-second-jklmnopqr"}]
-  d-s-z:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-prefix-db"}]
+  dc:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-second-stuvwxyz"}]
-  d-other:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-prefix-dc"}]
+  dd:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-second-other"}]
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-prefix-dd"}]
+  de:
+    executor: py
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-prefix-de"}]
+  df:
+    executor: py
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-prefix-df"}]
+  dg:
+    executor: py
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-prefix-dg"}]
+  dh:
+    executor: py
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-prefix-dh"}]
+  di:
+    executor: py
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-prefix-di"}]
 
 workflows:
-  d-page-prefix:
+  exact-d-prefix:
     jobs:
-      - d-a-i
-      - d-j-r
-      - d-s-z
-      - d-other
+      - da
+      - db
+      - dc
+      - dd
+      - de
+      - df
+      - dg
+      - dh
+      - di

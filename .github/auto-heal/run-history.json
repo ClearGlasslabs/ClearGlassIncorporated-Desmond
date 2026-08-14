@@ -1,4 +1,42 @@
 {
   "schema_version": 1,
-  "entries": []
+  "entries": [
+    {
+      "handled_at": "2026-08-14T22:26:06.903840+00:00",
+      "repo": "ClearGlasslabs/ClearGlassIncorporated-Desmond",
+      "workflow": "CI",
+      "run_id": 31846457475,
+      "run_attempt": 1,
+      "commit_sha": "3c16e3cd61501f153cdb79215bf1d8c928e21136",
+      "branch": "verify/workflows-20260814",
+      "classification": "UNKNOWN_FAILURE",
+      "action": "escalated_existing_issue",
+      "issue_number": null,
+      "run_url": "https://github.com/ClearGlasslabs/ClearGlassIncorporated-Desmond/actions/runs/31846457475",
+      "diagnostics": [
+        {
+          "job": "Workflow Doctor (dry-run)",
+          "job_id": 94913858021,
+          "conclusion": "failure",
+          "category": "UNKNOWN_FAILURE",
+          "signature": "unknown failure"
+        },
+        {
+          "job": "Python Tests",
+          "job_id": 94913858027,
+          "conclusion": "failure",
+          "category": "UNKNOWN_FAILURE",
+          "signature": "unknown failure"
+        },
+        {
+          "job": "Search discovery and structured data",
+          "job_id": 94913858086,
+          "conclusion": "failure",
+          "category": "UNKNOWN_FAILURE",
+          "signature": "unknown failure"
+        }
+      ],
+      "outcome": "pending_review"
+    }
+  ]
 }

@@ -8,31 +8,23 @@ executors:
     working_directory: ~/project
 
 jobs:
-  root-a:
+  d-a-i:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-letter-a"}]
-  root-b:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-second-abcdefghi"}]
+  d-j-r:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-letter-b"}]
-  root-c:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-second-jklmnopqr"}]
+  d-s-z:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-letter-c"}]
-  root-d:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-second-stuvwxyz"}]
+  d-other:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-letter-d"}]
-  root-e:
-    executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-letter-e"}]
-  root-f:
-    executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-letter-f"}]
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-second-other"}]
 
 workflows:
-  exact-root-initial:
+  d-page-prefix:
     jobs:
-      - root-a
-      - root-b
-      - root-c
-      - root-d
-      - root-e
-      - root-f
+      - d-a-i
+      - d-j-r
+      - d-s-z
+      - d-other

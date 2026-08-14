@@ -31,15 +31,7 @@ jobs:
       - checkout
       - run:
           name: Validate intent manifest JSON and graph route
-          command: |
-            python - <<'PY'
-            import json
-            from pathlib import Path
-            doc = json.loads(Path('data/seo/page-intents.json').read_text(encoding='utf-8'))
-            routes = {row['route'] for row in doc['pages']}
-            assert '/blog/graph-topology-multi-agent-research-workflow.html' in routes
-            assert len(routes) == len(doc['pages'])
-            PY
+          command: python -c "import json,pathlib; d=json.loads(pathlib.Path('data/seo/page-intents.json').read_text()); r=[x['route'] for x in d['pages']]; assert '/blog/graph-topology-multi-agent-research-workflow.html' in r and len(r)==len(set(r))"
 
 workflows:
   generated-metadata-validation:

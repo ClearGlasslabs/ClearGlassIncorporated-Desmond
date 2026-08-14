@@ -8,24 +8,27 @@ executors:
     working_directory: ~/project
 
 jobs:
-  generate-search-assets:
+  generate-and-push:
     executor: py
     steps:
       - checkout
       - run:
           name: Generate deterministic search assets
           command: python tools/generate_search_assets.py
-      - store_artifacts:
-          path: sitemap.xml
-          destination: generated/sitemap.xml
-      - store_artifacts:
-          path: feed.xml
-          destination: generated/feed.xml
-      - store_artifacts:
-          path: data/seo/page-intents.json
-          destination: generated/page-intents.json
+      - run:
+          name: Commit generated assets to disposable verification branch
+          command: |
+            set -euo pipefail
+            git config user.name "CircleCI Verification"
+            git config user.email "circleci-verification@users.noreply.github.com"
+            git add sitemap.xml feed.xml data/seo/page-intents.json
+            if git diff --cached --quiet; then
+              exit 0
+            fi
+            git commit -m "chore(seo): regenerate deterministic search assets"
+            git push origin "HEAD:${CIRCLE_BRANCH}"
 
 workflows:
   generated-search-assets:
     jobs:
-      - generate-search-assets
+      - generate-and-push

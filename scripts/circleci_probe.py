@@ -31,6 +31,39 @@ def internal(mode: str) -> int:
             if not match or match.group(0) != module.build_block(page):
                 return 1
         return 0
+    if mode == "classification":
+        discovered = {
+            path.relative_to(ROOT).as_posix()
+            for path in ROOT.rglob("*.html")
+            if not module.NON_SITE_DIRS & set(path.parts)
+        }
+        classified = set(module.PAGES) | set(module.EXCLUDED_PAGES) | set(module.NATIVE_JOURNEY_PAGES)
+        return 0 if discovered == classified else 1
+    if mode == "mapped-files":
+        return 0 if all((ROOT / page).is_file() for page in module.PAGES) else 1
+    if mode == "native-files":
+        return 0 if all((ROOT / page).is_file() for page in module.NATIVE_JOURNEY_PAGES) else 1
+    if mode == "clusters":
+        clustered: set[str] = set()
+        for cluster in module.CLUSTERS.values():
+            for page in [cluster["pillar"], *cluster["members"]]:
+                if page in clustered and page != "index.html":
+                    return 1
+                clustered.add(page)
+                if page not in module.PAGES:
+                    return 1
+        return 0 if clustered == set(module.PAGES) else 1
+    if mode == "extra-links":
+        for source, targets in module.EXTRA_LINKS.items():
+            for page in [source, *targets]:
+                if page not in module.PAGES:
+                    return 1
+        return 0
+    if mode == "overlaps":
+        mapped = set(module.PAGES)
+        excluded = set(module.EXCLUDED_PAGES)
+        native = set(module.NATIVE_JOURNEY_PAGES)
+        return 0 if not (mapped & excluded or mapped & native or excluded & native) else 1
     raise ValueError(mode)
 
 

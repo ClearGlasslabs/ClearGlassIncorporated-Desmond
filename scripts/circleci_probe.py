@@ -30,6 +30,11 @@ def inventory(module):
 
 def root_partition(mode: str, pages: set[str]) -> int:
     roots = {page for page in pages if "/" not in page}
+    if mode.startswith("classification-root-second-"):
+        letters = mode.removeprefix("classification-root-second-")
+        return 1 if any(page[:1].lower() == "d" and len(page) > 1 and page[1].lower() in letters for page in roots) else 0
+    if mode == "classification-root-second-other":
+        return 1 if any(page[:1].lower() == "d" and (len(page) < 2 or not page[1].lower().isalpha()) for page in roots) else 0
     if mode.startswith("classification-root-letter-"):
         letters = mode.removeprefix("classification-root-letter-")
         return 1 if any(page[:1].lower() in letters for page in roots) else 0

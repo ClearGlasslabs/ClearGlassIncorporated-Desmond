@@ -8,23 +8,31 @@ executors:
     working_directory: ~/project
 
 jobs:
-  unknown-da-s-z:
+  das:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal unknown-da-s-z"}]
-  missing-da-s-z:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal unknown-prefix-das"}]
+  dat:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal missing-da-s-z"}]
-  unknown-da-other:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal unknown-prefix-dat"}]
+  dau:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal unknown-da-other"}]
-  missing-da-other:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal unknown-prefix-dau"}]
+  dav:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal missing-da-other"}]
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal unknown-prefix-dav"}]
+  daw:
+    executor: py
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal unknown-prefix-daw"}]
+  dax:
+    executor: py
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal unknown-prefix-dax"}]
+  day:
+    executor: py
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal unknown-prefix-day"}]
+  daz:
+    executor: py
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal unknown-prefix-daz"}]
 
 workflows:
-  da-classification-direction:
-    jobs:
-      - unknown-da-s-z
-      - missing-da-s-z
-      - unknown-da-other
-      - missing-da-other
+  exact-da-prefix:
+    jobs: [das, dat, dau, dav, daw, dax, day, daz]

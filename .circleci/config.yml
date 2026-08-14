@@ -13,43 +13,39 @@ commands:
       - run: python -m pip install "PyYAML==6.0.2"
 
 jobs:
-  actions-0-20:
+  actions-20-30:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 0 20"}]
-  actions-20-40:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 20 30"}]
+  actions-30-40:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 20 40"}]
-  actions-40-60:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 30 40"}]
+  actions-40-50:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 40 60"}]
-  actions-60-end:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 40 50"}]
+  actions-50-60:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 60 1000"}]
-  doctor-0-20:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py actions 50 60"}]
+  doctor-20-30:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 0 20"}]
-  doctor-20-40:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 20 30"}]
+  doctor-30-40:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 20 40"}]
-  doctor-40-60:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 30 40"}]
+  doctor-40-50:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 40 60"}]
-  doctor-60-end:
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 40 50"}]
+  doctor-50-60:
     executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 60 1000"}]
-  doctor-local:
-    executor: py
-    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor-local"}]
+    steps: [checkout, setup, {run: "python scripts/workflow_probe.py doctor 50 60"}]
 
 workflows:
-  workflow-safety-diagnostics:
+  workflow-safety-bisect:
     jobs:
-      - actions-0-20
-      - actions-20-40
-      - actions-40-60
-      - actions-60-end
-      - doctor-0-20
-      - doctor-20-40
-      - doctor-40-60
-      - doctor-60-end
-      - doctor-local
+      - actions-20-30
+      - actions-30-40
+      - actions-40-50
+      - actions-50-60
+      - doctor-20-30
+      - doctor-30-40
+      - doctor-40-50
+      - doctor-50-60

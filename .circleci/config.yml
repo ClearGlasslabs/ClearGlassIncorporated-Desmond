@@ -8,31 +8,19 @@ executors:
     working_directory: ~/project
 
 jobs:
-  classification:
+  classification-blog:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification"}]
-  mapped-files:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-blog"}]
+  classification-root:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal mapped-files"}]
-  native-files:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root"}]
+  classification-nested:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal native-files"}]
-  clusters:
-    executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal clusters"}]
-  extra-links:
-    executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal extra-links"}]
-  overlaps:
-    executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal overlaps"}]
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-nested"}]
 
 workflows:
-  internal-classification-probes:
+  classification-location:
     jobs:
-      - classification
-      - mapped-files
-      - native-files
-      - clusters
-      - extra-links
-      - overlaps
+      - classification-blog
+      - classification-root
+      - classification-nested

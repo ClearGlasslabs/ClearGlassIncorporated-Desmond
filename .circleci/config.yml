@@ -13,23 +13,31 @@ commands:
       - run: python -m pip install -e './osit[dev]'
 
 jobs:
-  accessibility:
+  config-e:
     executor: py
-    steps: [checkout, install-osit, {run: "cd osit && ruff check src/osit/accessibility.py"}]
-  acquisition:
+    steps: [checkout, install-osit, {run: "cd osit && ruff check --select E src/osit/config.py"}]
+  config-f:
     executor: py
-    steps: [checkout, install-osit, {run: "cd osit && ruff check src/osit/acquisition.py"}]
-  cli:
+    steps: [checkout, install-osit, {run: "cd osit && ruff check --select F src/osit/config.py"}]
+  config-i:
     executor: py
-    steps: [checkout, install-osit, {run: "cd osit && ruff check src/osit/cli.py"}]
-  config:
+    steps: [checkout, install-osit, {run: "cd osit && ruff check --select I src/osit/config.py"}]
+  config-up:
     executor: py
-    steps: [checkout, install-osit, {run: "cd osit && ruff check src/osit/config.py"}]
+    steps: [checkout, install-osit, {run: "cd osit && ruff check --select UP src/osit/config.py"}]
+  config-b:
+    executor: py
+    steps: [checkout, install-osit, {run: "cd osit && ruff check --select B src/osit/config.py"}]
+  config-sim:
+    executor: py
+    steps: [checkout, install-osit, {run: "cd osit && ruff check --select SIM src/osit/config.py"}]
 
 workflows:
-  osit-source-file-diagnostics:
+  osit-config-rule-diagnostics:
     jobs:
-      - accessibility
-      - acquisition
-      - cli
-      - config
+      - config-e
+      - config-f
+      - config-i
+      - config-up
+      - config-b
+      - config-sim

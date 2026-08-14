@@ -18,6 +18,16 @@ def load_internal_links():
     return module
 
 
+def inventory(module):
+    discovered = {
+        path.relative_to(ROOT).as_posix()
+        for path in ROOT.rglob("*.html")
+        if not module.NON_SITE_DIRS & set(path.parts)
+    }
+    classified = set(module.PAGES) | set(module.EXCLUDED_PAGES) | set(module.NATIVE_JOURNEY_PAGES)
+    return discovered, classified
+
+
 def internal(mode: str) -> int:
     module = load_internal_links()
     if mode == "validate":
@@ -31,14 +41,18 @@ def internal(mode: str) -> int:
             if not match or match.group(0) != module.build_block(page):
                 return 1
         return 0
-    if mode == "classification":
-        discovered = {
-            path.relative_to(ROOT).as_posix()
-            for path in ROOT.rglob("*.html")
-            if not module.NON_SITE_DIRS & set(path.parts)
-        }
-        classified = set(module.PAGES) | set(module.EXCLUDED_PAGES) | set(module.NATIVE_JOURNEY_PAGES)
-        return 0 if discovered == classified else 1
+    if mode.startswith("classification"):
+        discovered, classified = inventory(module)
+        if mode == "classification":
+            return 0 if discovered == classified else 1
+        unknown = discovered - classified
+        missing = classified - discovered
+        if mode == "classification-blog":
+            return 1 if any(page.startswith("blog/") for page in unknown | missing) else 0
+        if mode == "classification-root":
+            return 1 if any("/" not in page for page in unknown | missing) else 0
+        if mode == "classification-nested":
+            return 1 if any("/" in page and not page.startswith("blog/") for page in unknown | missing) else 0
     if mode == "mapped-files":
         return 0 if all((ROOT / page).is_file() for page in module.PAGES) else 1
     if mode == "native-files":

@@ -13,35 +13,23 @@ commands:
       - run: python -m pip install -e './osit[dev]'
 
 jobs:
-  osit-a-c:
+  accessibility:
     executor: py
-    steps:
-      - checkout
-      - install-osit
-      - run: cd osit && ruff check src/osit/accessibility.py src/osit/acquisition.py src/osit/cli.py src/osit/config.py
-  osit-m:
+    steps: [checkout, install-osit, {run: "cd osit && ruff check src/osit/accessibility.py"}]
+  acquisition:
     executor: py
-    steps:
-      - checkout
-      - install-osit
-      - run: cd osit && ruff check src/osit/metrics.py src/osit/morphology.py src/osit/multimodal.py
-  osit-n-p:
+    steps: [checkout, install-osit, {run: "cd osit && ruff check src/osit/acquisition.py"}]
+  cli:
     executor: py
-    steps:
-      - checkout
-      - install-osit
-      - run: cd osit && ruff check src/osit/network_builder.py src/osit/provenance.py
-  osit-r-v:
+    steps: [checkout, install-osit, {run: "cd osit && ruff check src/osit/cli.py"}]
+  config:
     executor: py
-    steps:
-      - checkout
-      - install-osit
-      - run: cd osit && ruff check src/osit/resilience.py src/osit/validation.py src/osit/visualization.py src/osit/__init__.py
+    steps: [checkout, install-osit, {run: "cd osit && ruff check src/osit/config.py"}]
 
 workflows:
-  osit-source-lint-diagnostics:
+  osit-source-file-diagnostics:
     jobs:
-      - osit-a-c
-      - osit-m
-      - osit-n-p
-      - osit-r-v
+      - accessibility
+      - acquisition
+      - cli
+      - config

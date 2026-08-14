@@ -8,25 +8,28 @@ executors:
     working_directory: ~/project
 
 jobs:
-  links-validate:
+  sitemap-urls:
     executor: py
-    steps: [checkout, {run: "python scripts/final_integrity_probe.py links validate"}]
-  links-report:
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-urls"}]
+  sitemap-lastmods:
     executor: py
-    steps: [checkout, {run: "python scripts/final_integrity_probe.py links report"}]
-  links-blocks:
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-lastmods"}]
+  sitemap-graph:
     executor: py
-    steps: [checkout, {run: "python scripts/final_integrity_probe.py links blocks"}]
-  sitemap:
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-graph"}]
+  sitemap-bytes:
     executor: py
-    steps: [checkout, {run: "python scripts/final_integrity_probe.py search sitemap.xml"}]
-  feed:
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py sitemap-bytes"}]
+  intent-routes:
     executor: py
-    steps: [checkout, {run: "python scripts/final_integrity_probe.py search feed.xml"}]
-  intents:
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py intent-routes"}]
+  intent-existing:
     executor: py
-    steps: [checkout, {run: "python scripts/final_integrity_probe.py search data/seo/page-intents.json"}]
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py intent-existing"}]
+  intent-graph:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_delta_probe.py intent-graph"}]
 
 workflows:
-  final-generated-deltas:
-    jobs: [links-validate, links-report, links-blocks, sitemap, feed, intents]
+  generated-delta-shape:
+    jobs: [sitemap-urls, sitemap-lastmods, sitemap-graph, sitemap-bytes, intent-routes, intent-existing, intent-graph]

@@ -8,23 +8,23 @@ executors:
     working_directory: ~/project
 
 jobs:
-  da-a-i:
+  unknown-da-s-z:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-third-abcdefghi"}]
-  da-j-r:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal unknown-da-s-z"}]
+  missing-da-s-z:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-third-jklmnopqr"}]
-  da-s-z:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal missing-da-s-z"}]
+  unknown-da-other:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-third-stuvwxyz"}]
-  da-other:
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal unknown-da-other"}]
+  missing-da-other:
     executor: py
-    steps: [checkout, {run: "python scripts/circleci_probe.py internal classification-root-third-other"}]
+    steps: [checkout, {run: "python scripts/circleci_probe.py internal missing-da-other"}]
 
 workflows:
-  da-page-prefix:
+  da-classification-direction:
     jobs:
-      - da-a-i
-      - da-j-r
-      - da-s-z
-      - da-other
+      - unknown-da-s-z
+      - missing-da-s-z
+      - unknown-da-other
+      - missing-da-other

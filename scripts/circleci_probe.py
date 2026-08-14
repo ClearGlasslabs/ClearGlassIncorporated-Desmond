@@ -30,6 +30,9 @@ def inventory(module):
 
 def root_partition(mode: str, pages: set[str]) -> int:
     roots = {page for page in pages if "/" not in page}
+    if mode.startswith("classification-root-letter-"):
+        letters = mode.removeprefix("classification-root-letter-")
+        return 1 if any(page[:1].lower() in letters for page in roots) else 0
     ranges = {
         "classification-root-a-f": "abcdef",
         "classification-root-g-l": "ghijkl",
@@ -38,8 +41,7 @@ def root_partition(mode: str, pages: set[str]) -> int:
     }
     if mode == "classification-root-other":
         return 1 if any(not page[:1].lower().isalpha() for page in roots) else 0
-    letters = ranges[mode]
-    return 1 if any(page[:1].lower() in letters for page in roots) else 0
+    return 1 if any(page[:1].lower() in ranges[mode] for page in roots) else 0
 
 
 def internal(mode: str) -> int:

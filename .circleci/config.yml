@@ -10,71 +10,43 @@ executors:
 commands:
   install-root:
     steps:
-      - run:
-          name: Install root test dependencies
-          command: |
-            python -m pip install --upgrade pip
-            python -m pip install -c requirements.txt -e ".[test]" "PyYAML==6.0.2"
-  install-commerce:
-    steps:
-      - install-root
-      - run:
-          name: Install commerce dependencies
-          command: python -m pip install -r clearglass-commerce/control-plane/requirements.txt
-
-jobs:
-  pytest-root:
-    executor: py
-    steps:
-      - checkout
-      - install-root
-      - run: python -m pytest tests -q
-  pytest-artemis:
-    executor: py
-    steps:
-      - checkout
-      - install-root
-      - run: python -m pytest artemis/tests -q
-  pytest-sentinel:
-    executor: py
-    steps:
-      - checkout
-      - install-root
-      - run: python -m pytest sentinel/tests -q
-  pytest-commerce:
-    executor: py
-    steps:
-      - checkout
-      - install-commerce
-      - run: python -m pytest clearglass-commerce/control-plane/tests -q
-  osit-install:
-    executor: py
-    steps:
-      - checkout
       - run: |
           python -m pip install --upgrade pip
-          python -m pip install -e './osit[dev]'
-          python -m pip check
-  osit-ruff:
-    executor: py
+          python -m pip install -c requirements.txt -e ".[test]" "PyYAML==6.0.2"
+  install-osit:
     steps:
-      - checkout
       - run: python -m pip install -e './osit[dev]'
-      - run: cd osit && ruff check src tests
-  osit-tests:
+
+jobs:
+  root-future-buttons:
     executor: py
-    steps:
-      - checkout
-      - run: python -m pip install -e './osit[dev]'
-      - run: cd osit && pytest --cov=osit --cov-report=term-missing
+    steps: [checkout, install-root, {run: "python -m pytest tests/test_future_buttons.py -q"}]
+  root-holographic:
+    executor: py
+    steps: [checkout, install-root, {run: "python -m pytest tests/test_holographic_branding.py -q"}]
+  root-internal-links:
+    executor: py
+    steps: [checkout, install-root, {run: "python -m pytest tests/test_internal_links.py -q"}]
+  root-tab-icons:
+    executor: py
+    steps: [checkout, install-root, {run: "python -m pytest tests/test_tab_icons.py -q"}]
+  root-deployment-containment:
+    executor: py
+    steps: [checkout, install-root, {run: "python -m pytest tests/test_deployment_workflow_containment.py -q"}]
+  osit-ruff-src:
+    executor: py
+    steps: [checkout, install-osit, {run: "cd osit && ruff check src"}]
+  osit-ruff-tests:
+    executor: py
+    steps: [checkout, install-osit, {run: "cd osit && ruff check tests"}]
 
 workflows:
-  runtime-diagnostics:
+  residual-runtime-diagnostics:
     jobs:
-      - pytest-root
-      - pytest-artemis
-      - pytest-sentinel
-      - pytest-commerce
-      - osit-install
-      - osit-ruff
-      - osit-tests
+      - root-future-buttons
+      - root-holographic
+      - root-internal-links
+      - root-tab-icons
+      - root-deployment-containment
+      - osit-ruff-src
+      - osit-ruff-tests

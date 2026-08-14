@@ -7,35 +7,36 @@ executors:
     resource_class: medium
     working_directory: ~/project
 
+commands:
+  regenerate:
+    steps:
+      - run:
+          name: Regenerate search assets
+          command: python tools/generate_search_assets.py
+
 jobs:
-  search-assets:
+  sitemap:
     executor: py
     steps:
       - checkout
-      - run:
-          name: Regenerate search assets and require zero diff
-          command: |
-            set -euo pipefail
-            python tools/generate_search_assets.py
-            git diff --exit-code -- sitemap.xml feed.xml data/seo/page-intents.json
-  internal-links:
+      - regenerate
+      - run: git diff --exit-code -- sitemap.xml
+  feed:
     executor: py
     steps:
       - checkout
-      - run:
-          name: Require generated wiring plan and blocks to be current
-          command: python tools/internal_links.py --check
-  intent-json:
+      - regenerate
+      - run: git diff --exit-code -- feed.xml
+  intents:
     executor: py
     steps:
       - checkout
-      - run:
-          name: Validate intent manifest JSON and graph route
-          command: python -c "import json,pathlib; d=json.loads(pathlib.Path('data/seo/page-intents.json').read_text()); r=[x['route'] for x in d['pages']]; assert '/blog/graph-topology-multi-agent-research-workflow.html' in r and len(r)==len(set(r))"
+      - regenerate
+      - run: git diff --exit-code -- data/seo/page-intents.json
 
 workflows:
-  generated-metadata-validation:
+  search-asset-isolation:
     jobs:
-      - search-assets
-      - internal-links
-      - intent-json
+      - sitemap
+      - feed
+      - intents

@@ -7,36 +7,48 @@ executors:
     resource_class: medium
     working_directory: ~/project
 
-commands:
-  regenerate:
-    steps:
-      - run:
-          name: Regenerate search assets
-          command: python tools/generate_search_assets.py
-
 jobs:
-  sitemap:
+  sitemap-urls:
     executor: py
-    steps:
-      - checkout
-      - regenerate
-      - run: git diff --exit-code -- sitemap.xml
-  feed:
+    steps: [checkout, {run: "python scripts/generated_semantic_probe.py sitemap-urls"}]
+  sitemap-lastmods:
     executor: py
-    steps:
-      - checkout
-      - regenerate
-      - run: git diff --exit-code -- feed.xml
-  intents:
+    steps: [checkout, {run: "python scripts/generated_semantic_probe.py sitemap-lastmods"}]
+  sitemap-order:
     executor: py
-    steps:
-      - checkout
-      - regenerate
-      - run: git diff --exit-code -- data/seo/page-intents.json
+    steps: [checkout, {run: "python scripts/generated_semantic_probe.py sitemap-order"}]
+  sitemap-bytes:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_semantic_probe.py sitemap-bytes"}]
+  intent-header:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_semantic_probe.py intent-header"}]
+  intent-routes:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_semantic_probe.py intent-routes"}]
+  intent-records:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_semantic_probe.py intent-records"}]
+  intent-order:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_semantic_probe.py intent-order"}]
+  intent-graph:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_semantic_probe.py intent-graph"}]
+  intent-bytes:
+    executor: py
+    steps: [checkout, {run: "python scripts/generated_semantic_probe.py intent-bytes"}]
 
 workflows:
-  search-asset-isolation:
+  generated-semantic-drift:
     jobs:
-      - sitemap
-      - feed
-      - intents
+      - sitemap-urls
+      - sitemap-lastmods
+      - sitemap-order
+      - sitemap-bytes
+      - intent-header
+      - intent-routes
+      - intent-records
+      - intent-order
+      - intent-graph
+      - intent-bytes

@@ -2,46 +2,41 @@
   {
     "status": "warn",
     "title": "CI failing",
-    "detail": "Latest run #312 concluded failure (2026-08-22)."
+    "detail": "Latest run #320 concluded failure (2026-08-22)."
+  },
+  {
+    "status": "warn",
+    "title": "Clear Signal Homepage Integration failing",
+    "detail": "Latest run #9 concluded failure (2026-08-22)."
   },
   {
     "status": "warn",
     "title": "ClearGlass GitHub Pages Check failing",
-    "detail": "Latest run #22 concluded failure (2026-08-22)."
+    "detail": "Latest run #27 concluded failure (2026-08-22)."
   },
   {
     "status": "warn",
     "title": "Cloudflare Pages Deploy failing",
-    "detail": "Latest run #20 concluded failure (2026-08-22)."
-  },
-  {
-    "status": "warn",
-    "title": "Defender Watch failing",
-    "detail": "Latest run #30 concluded failure (2026-08-22)."
-  },
-  {
-    "status": "warn",
-    "title": "Health Monitor failing",
-    "detail": "Latest run #30 concluded failure (2026-08-22)."
+    "detail": "Latest run #27 concluded failure (2026-08-22)."
   },
   {
     "status": "warn",
     "title": "Internal Link Authority failing",
-    "detail": "Latest run #20 concluded failure (2026-08-22)."
+    "detail": "Latest run #24 concluded failure (2026-08-22)."
   },
   {
     "status": "warn",
     "title": "SEO Continuous Audit failing",
-    "detail": "Latest run #21 concluded failure (2026-08-22)."
+    "detail": "Latest run #25 concluded failure (2026-08-22)."
   },
   {
     "status": "warn",
     "title": "SEO Dashboard failing",
-    "detail": "Latest run #20 concluded failure (2026-08-22)."
+    "detail": "Latest run #24 concluded failure (2026-08-22)."
   },
   {
     "status": "warn",
     "title": "Site Integrity Guard failing",
-    "detail": "Latest run #111 concluded failure (2026-08-22)."
+    "detail": "Latest run #118 concluded failure (2026-08-22)."
   }
 ]

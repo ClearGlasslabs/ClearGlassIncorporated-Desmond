@@ -1,142 +1,142 @@
 [
   {
-    "title": "Control Surface Feeds #169",
+    "title": "Control Surface Feeds #171",
     "status": "warn",
     "detail": "in_progress \u00b7 schedule on main",
-    "time": "20:40",
-    "timestamp": "2026-08-22T20:40:59Z"
+    "time": "22:39",
+    "timestamp": "2026-08-22T22:39:41Z"
   },
   {
-    "title": "Deploy Pages #167",
-    "status": "ok",
-    "detail": "success \u00b7 workflow_dispatch on main",
-    "time": "19:36",
-    "timestamp": "2026-08-22T19:36:41Z"
-  },
-  {
-    "title": "Control Surface Feeds #168",
-    "status": "ok",
-    "detail": "success \u00b7 schedule on main",
-    "time": "19:36",
-    "timestamp": "2026-08-22T19:36:14Z"
-  },
-  {
-    "title": "Auto Heal #714",
+    "title": "Auto Heal #743",
     "status": "warn",
     "detail": "skipped \u00b7 workflow_run on main",
-    "time": "19:15",
-    "timestamp": "2026-08-22T19:15:20Z"
+    "time": "22:38",
+    "timestamp": "2026-08-22T22:38:16Z"
   },
   {
-    "title": "Auto Heal #713",
+    "title": "Auto Heal #742",
     "status": "warn",
     "detail": "skipped \u00b7 workflow_run on main",
-    "time": "19:14",
-    "timestamp": "2026-08-22T19:14:47Z"
+    "time": "22:37",
+    "timestamp": "2026-08-22T22:37:18Z"
   },
   {
-    "title": "Auto Heal #712",
+    "title": "Auto Heal #741",
     "status": "warn",
     "detail": "skipped \u00b7 workflow_run on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:24Z"
+    "time": "22:37",
+    "timestamp": "2026-08-22T22:37:15Z"
   },
   {
-    "title": "Auto Heal #711",
+    "title": "Auto Heal #740",
     "status": "warn",
     "detail": "skipped \u00b7 workflow_run on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:23Z"
+    "time": "22:37",
+    "timestamp": "2026-08-22T22:37:11Z"
   },
   {
-    "title": "Auto Heal #710",
+    "title": "SEO Continuous Audit #25",
+    "status": "bad",
+    "detail": "failure \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "Internal Link Authority #24",
+    "status": "bad",
+    "detail": "failure \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "Advanced SEO Growth #24",
+    "status": "ok",
+    "detail": "success \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "IP Protection Bot - Risk Assessment #125",
+    "status": "ok",
+    "detail": "success \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "Security #119",
+    "status": "ok",
+    "detail": "success \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "Clear Signal Homepage Integration #9",
+    "status": "bad",
+    "detail": "failure \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "ClearGlass GitHub Pages Check #27",
+    "status": "bad",
+    "detail": "failure \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "SEO Dashboard #24",
+    "status": "bad",
+    "detail": "failure \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "Defensive Security Orchestrator #118",
+    "status": "ok",
+    "detail": "success \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "CI #320",
+    "status": "bad",
+    "detail": "failure \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "Policy Gate #118",
+    "status": "ok",
+    "detail": "success \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "Cloudflare Pages Deploy #27",
+    "status": "bad",
+    "detail": "failure \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "Site Reliability Audit #40",
+    "status": "ok",
+    "detail": "success \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "Site Integrity Guard #118",
+    "status": "bad",
+    "detail": "failure \u00b7 push on main",
+    "time": "22:36",
+    "timestamp": "2026-08-22T22:36:58Z"
+  },
+  {
+    "title": "Auto Heal #739",
     "status": "warn",
     "detail": "skipped \u00b7 workflow_run on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:21Z"
-  },
-  {
-    "title": "IP Protection Bot - Risk Assessment #118",
-    "status": "ok",
-    "detail": "success \u00b7 push on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:07Z"
-  },
-  {
-    "title": "CodeQL #37",
-    "status": "ok",
-    "detail": "success \u00b7 push on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:07Z"
-  },
-  {
-    "title": "Internal Link Authority #20",
-    "status": "bad",
-    "detail": "failure \u00b7 push on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:07Z"
-  },
-  {
-    "title": "Site Reliability Audit #36",
-    "status": "ok",
-    "detail": "success \u00b7 push on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:07Z"
-  },
-  {
-    "title": "SEO Dashboard #20",
-    "status": "bad",
-    "detail": "failure \u00b7 push on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:07Z"
-  },
-  {
-    "title": "Policy Gate #111",
-    "status": "ok",
-    "detail": "success \u00b7 push on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:07Z"
-  },
-  {
-    "title": "Advanced SEO Growth #20",
-    "status": "ok",
-    "detail": "success \u00b7 push on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:07Z"
-  },
-  {
-    "title": "Clear Signal Homepage Integration #5",
-    "status": "ok",
-    "detail": "success \u00b7 push on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:07Z"
-  },
-  {
-    "title": "ClearGlass GitHub Pages Check #22",
-    "status": "bad",
-    "detail": "failure \u00b7 push on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:07Z"
-  },
-  {
-    "title": "SEO Continuous Audit #21",
-    "status": "bad",
-    "detail": "failure \u00b7 push on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:07Z"
-  },
-  {
-    "title": "CI #312",
-    "status": "bad",
-    "detail": "failure \u00b7 push on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:07Z"
-  },
-  {
-    "title": "Site Integrity Guard #111",
-    "status": "bad",
-    "detail": "failure \u00b7 push on main",
-    "time": "19:13",
-    "timestamp": "2026-08-22T19:13:07Z"
+    "time": "22:24",
+    "timestamp": "2026-08-22T22:24:58Z"
   }
 ]
